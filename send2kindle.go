@@ -65,6 +65,7 @@ func main() {
 		for _, f := range os.Args[1:] {
 			addFileMsg(f)
 		}
+		fmt.Println("All files are converted!")
 	}()
 
 	err := <-ch // check if smtp init complete
