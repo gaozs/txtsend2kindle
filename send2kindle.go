@@ -206,7 +206,7 @@ func genHTMLFile(htmlFilename string, data []byte) (err error) {
 <head>
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
 <style>
-p { margin:0.3em -1em; padding:0em; text-indent:2em; line-height:1; }
+p { margin:0.3em -0.2em; padding:0em; text-indent:2em; line-height:1; }
 </style>
 </head>
 <body>
