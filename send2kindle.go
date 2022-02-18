@@ -28,7 +28,7 @@ var sendTo string   //kindle推送邮箱
 var boundary string
 
 func init() {
-	cfg.ParseIniFile("cfg.ini")
+	cfg.ParseIniFile(filepath.Dir(os.Args[0]) + string(os.PathSeparator) + "cfg.ini")
 	if cfg.GetAttr("main", "version") == "" {
 		panic("Error parse INI file")
 	}
