@@ -54,6 +54,10 @@ var ch = make(chan error)                      // for get smtp init result
 var msgCh = make(chan fileMsg, len(os.Args)-1) // msgs to be sent
 
 func main() {
+	defer func() {
+		fmt.Scanln()
+	}()
+
 	if len(os.Args) <= 1 {
 		fmt.Println("No file to send!")
 		return
@@ -61,6 +65,7 @@ func main() {
 
 	go initSMTPClient()
 
+	fmt.Println("Converting files...")
 	go func() {
 		for _, f := range os.Args[1:] {
 			addFileMsg(f)
