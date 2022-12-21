@@ -55,6 +55,7 @@ var msgCh = make(chan fileMsg, len(os.Args)-1) // msgs to be sent
 
 func main() {
 	defer func() {
+		fmt.Println("All Done, press enter to exit.")
 		fmt.Scanln()
 	}()
 
