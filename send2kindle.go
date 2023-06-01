@@ -90,28 +90,31 @@ func initSMTPClient() {
 	fmt.Println("connecting email server:", serverAddr)
 	defer fmt.Println("connected email server:", serverAddr)
 
-	client, err = smtp.Dial(serverAddr)
-	if err != nil {
-		ch <- err
-		return
-	}
-
-	if err = client.Hello(host); err != nil {
-		ch <- err
-		return
-	}
-	if ok, _ := client.Extension("STARTTLS"); ok {
-		config := &tls.Config{ServerName: host}
-		if err = client.StartTLS(config); err != nil {
-			ch <- err
-			return
+	for i := 0; i < 3; i++ {
+		client, err = smtp.Dial(serverAddr)
+		if err != nil {
+			fmt.Println("err:", err)
+			continue
 		}
-	}
 
-	auth := smtpauth.LoginAuth(user, password)
-	if err = client.Auth(auth); err != nil {
-		ch <- err
-		return
+		if err = client.Hello(host); err != nil {
+			fmt.Println("err:", err)
+			continue
+		}
+		if ok, _ := client.Extension("STARTTLS"); ok {
+			config := &tls.Config{ServerName: host}
+			if err = client.StartTLS(config); err != nil {
+				fmt.Println("err:", err)
+				continue
+			}
+		}
+
+		auth := smtpauth.LoginAuth(user, password)
+		if err = client.Auth(auth); err != nil {
+			fmt.Println("err:", err)
+			continue
+		}
+		break
 	}
 
 	ch <- err
