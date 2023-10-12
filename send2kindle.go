@@ -44,8 +44,8 @@ var client *smtp.Client
 var outBuf *bytes.Buffer
 
 type fileMsg struct {
-	fName  string // file name
-	outBuf *bytes.Buffer
+	fName  string        // file name
+	outBuf *bytes.Buffer // record log info
 	msg    *bytes.Buffer // file mail msg
 	err    error         // file generate error
 }
